@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dra. Sofía Mendoza — Psicología & Bienestar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --lila: #9B7FBD;
+      --lavanda: #C8B8E8;
+      --lavanda-suave: #EDE8F7;
+      --lavanda-extra: #F7F4FD;
+      --blanco: #FFFFFF;
+      --texto: #2D2438;
+      --texto-suave: #6B5F7A;
+      --acento: #7C5FA8;
+      --rosa-suave: #F3E8F0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blanco);
+      color: var(--texto);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(155,127,189,0.15);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(124,95,168,0.12); }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--acento); letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { font-style: italic; font-weight: 300; color: var(--lila); }
+
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--texto-suave);
+      font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1.5px; background: var(--lila); transform: scaleX(0);
+      transition: transform 0.25s; transform-origin: left;
+    }
+    .nav-links a:hover { color: var(--acento); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .btn-nav {
+      background: var(--acento); color: var(--blanco);
+      padding: 0.6rem 1.4rem; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 500; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-nav:hover { background: var(--lila); transform: translateY(-1px); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--acento); border-radius: 2px; transition: 0.3s; }
+
+    /* ── HERO ── */
+    #inicio {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 5% 4rem;
+      background: linear-gradient(135deg, var(--lavanda-extra) 0%, var(--blanco) 60%);
+      position: relative; overflow: hidden;
+    }
+
+    #inicio::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,184,232,0.35) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    #inicio::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(155,127,189,0.15) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--lavanda-suave); border: 1px solid rgba(155,127,189,0.3);
+      color: var(--acento); padding: 0.4rem 1rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before { content: '✦'; font-size: 0.7rem; }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 300; line-height: 1.15;
+      color: var(--texto); margin-bottom: 1.4rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero-title em { font-style: italic; color: var(--acento); }
+    .hero-title strong { font-weight: 600; }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--texto-suave);
+      line-height: 1.7; max-width: 480px;
+      margin-bottom: 2.4rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--acento); color: var(--blanco);
+      padding: 0.85rem 2rem; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 500; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.25s; box-shadow: 0 4px 20px rgba(124,95,168,0.3);
+    }
+    .btn-primary:hover { background: var(--lila); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,95,168,0.35); }
+
+    .btn-outline {
+      border: 1.5px solid var(--lavanda); color: var(--acento);
+      padding: 0.85rem 2rem; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 500; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.25s; background: transparent;
+    }
+    .btn-outline:hover { background: var(--lavanda-suave); border-color: var(--acento); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3rem;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .stat { text-align: left; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 600; color: var(--acento); line-height: 1;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--texto-suave); margin-top: 0.2rem; letter-spacing: 0.03em; }
+
+    /* Hero Image */
+    .hero-image {
+      display: flex; justify-content: center; align-items: center;
+      position: relative; z-index: 1;
+      animation: fadeIn 0.8s 0.2s ease both;
+    }
+
+    .hero-img-wrap {
+      position: relative; width: 420px; height: 520px;
+    }
+
+    .hero-img-blob {
+      width: 100%; height: 100%;
+      background: linear-gradient(145deg, var(--lavanda) 0%, var(--lila) 60%, #7B5EA7 100%);
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      display: flex; align-items: flex-end; justify-content: center;
+      overflow: hidden;
+      animation: blobMorph 8s ease-in-out infinite;
+    }
+
+    .hero-img-placeholder {
+      width: 85%; padding-bottom: 4px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .silhouette {
+      width: 160px; height: 280px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 80px 80px 20px 20px;
+      position: relative;
+    }
+    .silhouette::before {
+      content: ''; position: absolute;
+      top: -50px; left: 50%; transform: translateX(-50%);
+      width: 80px; height: 80px;
+      background: rgba(255,255,255,0.25); border-radius: 50%;
+    }
+    .img-caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-style: italic;
+      color: rgba(255,255,255,0.9); text-align: center;
+      padding: 1rem 0 1.5rem;
+    }
+
+    .hero-card-float {
+      position: absolute; background: white;
+      border-radius: 16px; padding: 1rem 1.2rem;
+      box-shadow: 0 8px 32px rgba(124,95,168,0.2);
+      font-size: 0.82rem;
+    }
+    .hero-card-float.card-1 {
+      top: 20px; right: -20px;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .card-icon { font-size: 1.4rem; }
+    .card-text-main { font-weight: 500; color: var(--texto); }
+    .card-text-sub { color: var(--texto-suave); font-size: 0.75rem; }
+
+    .hero-card-float.card-2 {
+      bottom: 60px; left: -30px;
+      text-align: center;
+    }
+    .card-rating { font-size: 0.9rem; color: #F5A623; letter-spacing: 2px; }
+
+    /* ── SECCIÓN SOBRE MÍ ── */
+    #sobre-mi {
+      padding: 6rem 5%;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+      background: var(--blanco);
+    }
+
+    .sobre-img-wrap {
+      position: relative;
+    }
+    .sobre-img-bg {
+      width: 100%; height: 480px;
+      background: var(--lavanda-suave);
+      border-radius: 40px 8px 40px 8px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .sobre-deco {
+      position: absolute; top: -20px; left: -20px;
+      width: 120px; height: 120px;
+      border: 2px solid var(--lavanda);
+      border-radius: 40px 8px 40px 8px;
+    }
+    .sobre-badge-float {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--acento); color: white;
+      padding: 1.2rem 1.5rem; border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(124,95,168,0.3);
+    }
+    .sobre-badge-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 600; display: block;
+    }
+    .sobre-badge-text { font-size: 0.75rem; opacity: 0.85; }
+
+    .seccion-tag {
+      display: inline-block;
+      background: var(--lavanda-suave); color: var(--acento);
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.35rem 1rem;
+      border-radius: 50px; margin-bottom: 1.2rem;
+    }
+
+    .seccion-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400; line-height: 1.2;
+      margin-bottom: 1.4rem;
+    }
+    .seccion-titulo em { font-style: italic; color: var(--acento); }
+
+    .sobre-texto {
+      color: var(--texto-suave); line-height: 1.8;
+      font-size: 0.95rem; margin-bottom: 1.4rem;
+    }
+
+    .sobre-skills {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.6rem;
+    }
+    .skill-tag {
+      background: var(--lavanda-suave); color: var(--acento);
+      border: 1px solid rgba(155,127,189,0.3);
+      padding: 0.4rem 1rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 500;
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios {
+      padding: 6rem 5%;
+      background: var(--lavanda-extra);
+    }
+
+    .seccion-header { text-align: center; margin-bottom: 3.5rem; }
+    .seccion-header .seccion-titulo { margin-bottom: 0.8rem; }
+    .seccion-desc { color: var(--texto-suave); font-size: 1rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    .servicios-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .servicio-card {
+      background: var(--blanco);
+      border-radius: 24px; padding: 2rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(155,127,189,0.15);
+      position: relative; overflow: hidden;
+      cursor: default;
+    }
+    .servicio-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--lavanda), var(--acento));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s;
+    }
+    .servicio-card:hover::before { transform: scaleX(1); }
+    .servicio-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(124,95,168,0.15); }
+
+    .serv-icon {
+      width: 56px; height: 56px;
+      background: var(--lavanda-suave); border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.2rem;
+    }
+    .serv-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 600;
+      margin-bottom: 0.7rem; color: var(--texto);
+    }
+    .serv-desc { color: var(--texto-suave); font-size: 0.88rem; line-height: 1.7; margin-bottom: 1.2rem; }
+    .serv-precio { font-weight: 600; color: var(--acento); font-size: 0.95rem; }
+    .serv-precio span { font-size: 0.78rem; color: var(--texto-suave); font-weight: 400; }
+
+    /* ── PROCESO ── */
+    #proceso {
+      padding: 6rem 5%;
+      background: var(--blanco);
+    }
+
+    .proceso-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; margin-top: 3.5rem; position: relative;
+    }
+    .proceso-steps::before {
+      content: '';
+      position: absolute; top: 28px; left: 60px; right: 60px;
+      height: 1px; background: linear-gradient(90deg, var(--lavanda), var(--acento), var(--lavanda));
+    }
+
+    .paso {
+      text-align: center; position: relative;
+    }
+    .paso-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--lavanda), var(--acento));
+      color: white; font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem; position: relative; z-index: 1;
+      box-shadow: 0 4px 16px rgba(124,95,168,0.3);
+    }
+    .paso-title { font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem; }
+    .paso-desc { font-size: 0.83rem; color: var(--texto-suave); line-height: 1.6; }
+
+    /* ── BLOG ── */
+    #blog {
+      padding: 6rem 5%;
+      background: var(--lavanda-extra);
+    }
+
+    .blog-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+
+    .blog-card {
+      background: var(--blanco); border-radius: 20px;
+      overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(155,127,189,0.12);
+    }
+    .blog-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(124,95,168,0.13); }
+
+    .blog-img {
+      height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+    }
+    .blog-img.bg1 { background: linear-gradient(135deg, #EDE8F7, #C8B8E8); }
+    .blog-img.bg2 { background: linear-gradient(135deg, #F3E8F0, #E8D0E8); }
+    .blog-img.bg3 { background: linear-gradient(135deg, #E8EDF7, #C8D4E8); }
+
+    .blog-body { padding: 1.4rem; }
+    .blog-tag {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--acento);
+      margin-bottom: 0.6rem; display: block;
+    }
+    .blog-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 600;
+      line-height: 1.3; margin-bottom: 0.6rem;
+    }
+    .blog-excerpt { font-size: 0.83rem; color: var(--texto-suave); line-height: 1.65; margin-bottom: 1rem; }
+    .blog-meta { font-size: 0.75rem; color: var(--texto-suave); display: flex; align-items: center; gap: 0.4rem; }
+    .blog-link {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--acento); font-size: 0.83rem; font-weight: 500;
+      text-decoration: none; margin-top: 0.8rem;
+      transition: gap 0.2s;
+    }
+    .blog-link:hover { gap: 0.6rem; }
+
+    /* ── CONTACTO ── */
+    #contacto {
+      padding: 6rem 5%;
+      background: var(--blanco);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+
+    .contacto-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      font-weight: 400; line-height: 1.2; margin-bottom: 1.2rem;
+    }
+    .contacto-info p { color: var(--texto-suave); line-height: 1.7; margin-bottom: 2rem; }
+
+    .contacto-items { display: flex; flex-direction: column; gap: 1rem; }
+    .contacto-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem; border-radius: 14px;
+      background: var(--lavanda-extra);
+      border: 1px solid rgba(155,127,189,0.2);
+    }
+    .ci-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--lavanda-suave); display: flex;
+      align-items: center; justify-content: center; font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .ci-label { font-size: 0.75rem; color: var(--texto-suave); margin-bottom: 0.1rem; }
+    .ci-value { font-weight: 500; font-size: 0.9rem; color: var(--texto); }
+
+    /* Mapa */
+    .mapa-wrap {
+      margin-top: 1.5rem; border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(155,127,189,0.2);
+      height: 200px; background: var(--lavanda-suave);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem; color: var(--texto-suave);
+      font-size: 0.85rem;
+    }
+    .mapa-wrap iframe {
+      width: 100%; height: 100%; border: none;
+    }
+
+    /* Formulario */
+    .contacto-form { display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-size: 0.82rem; font-weight: 500; color: var(--texto-suave); letter-spacing: 0.03em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.85rem 1.1rem;
+      border: 1.5px solid rgba(155,127,189,0.3);
+      border-radius: 12px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; color: var(--texto);
+      background: var(--lavanda-extra);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none; resize: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--lila);
+      box-shadow: 0 0 0 3px rgba(155,127,189,0.15);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .btn-form {
+      background: var(--acento); color: var(--blanco);
+      border: none; padding: 1rem 2rem; border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500; cursor: pointer;
+      transition: all 0.25s; display: flex; align-items: center;
+      justify-content: center; gap: 0.5rem;
+      box-shadow: 0 4px 16px rgba(124,95,168,0.3);
+    }
+    .btn-form:hover { background: var(--lila); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,95,168,0.35); }
+
+    .form-msg { display: none; padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.85rem; }
+    .form-msg.success { background: #EDF7ED; color: #2E7D32; border: 1px solid #A5D6A7; display: block; }
+    .form-msg.error { background: #FDE8E8; color: #C62828; border: 1px solid #FFCDD2; display: block; }
+
+    /* ── CALENDLY BANNER ── */
+    #agenda {
+      padding: 5rem 5%;
+      background: linear-gradient(135deg, var(--acento) 0%, var(--lila) 100%);
+      text-align: center; color: white;
+    }
+    #agenda h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    #agenda p { opacity: 0.88; margin-bottom: 2rem; font-size: 1rem; max-width: 480px; margin-left: auto; margin-right: auto; margin-bottom: 2rem; }
+    .btn-calendly {
+      background: white; color: var(--acento);
+      padding: 1rem 2.4rem; border-radius: 50px;
+      font-weight: 600; font-size: 0.95rem; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      transition: all 0.25s; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .btn-calendly:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--texto); color: rgba(255,255,255,0.7);
+      padding: 3rem 5% 2rem;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 2.5rem;
+    }
+    .footer-brand .nav-logo { color: var(--lavanda); font-size: 1.3rem; display: block; margin-bottom: 0.8rem; }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; letter-spacing: 0.05em; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.83rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--lavanda); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem;
+    }
+    .footer-bottom a { color: var(--lavanda); text-decoration: none; }
+
+    /* ── WHATSAPP FLOTANTE ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366; color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+      transition: transform 0.25s, box-shadow 0.25s;
+      animation: pulse-wa 2.5s ease-in-out infinite;
+    }
+    .wa-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 32px rgba(37,211,102,0.5);
+      animation: none;
+    }
+    .wa-tooltip {
+      position: absolute; right: 70px; top: 50%; transform: translateY(-50%);
+      background: var(--texto); color: white;
+      padding: 0.45rem 0.9rem; border-radius: 8px;
+      font-size: 0.78rem; white-space: nowrap;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .wa-float:hover .wa-tooltip { opacity: 1; }
+
+    /* ── ANIMACIONES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes blobMorph {
+      0%,100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; }
+      33%      { border-radius: 40% 60% 45% 55% / 60% 40% 60% 40%; }
+      66%      { border-radius: 55% 45% 60% 40% / 40% 55% 45% 60%; }
+    }
+    @keyframes pulse-wa {
+      0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.4); }
+      50%      { box-shadow: 0 6px 36px rgba(37,211,102,0.65); }
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #inicio { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub { margin: 0 auto 2.4rem; }
+      .hero-btns { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-image { display: none; }
+      #sobre-mi { grid-template-columns: 1fr; gap: 2.5rem; }
+      .sobre-img-wrap { display: none; }
+      .servicios-grid { grid-template-columns: 1fr; }
+      .proceso-steps { grid-template-columns: 1fr 1fr; }
+      .proceso-steps::before { display: none; }
+      .blog-grid { grid-template-columns: 1fr; }
+      #contacto { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .nav-links, .btn-nav { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .proceso-steps { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; gap: 1rem; }
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      z-index: 99; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; color: var(--texto); text-decoration: none;
+      font-weight: 300;
+    }
+    .mobile-menu a:hover { color: var(--acento); }
+    .mobile-close {
+      position: absolute; top: 1.5rem; right: 5%;
+      background: none; border: none; font-size: 2rem;
+      cursor: pointer; color: var(--texto);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#inicio" class="nav-logo">Sofía <span>Mendoza</span></a>
+    <ul class="nav-links">
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="https://calendly.com" target="_blank" class="btn-nav">Agendar cita</a>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MENÚ MOBILE -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="toggleMenu()">✕</button>
+    <a href="#sobre-mi" onclick="toggleMenu()">Sobre mí</a>
+    <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+    <a href="#proceso" onclick="toggleMenu()">Proceso</a>
+    <a href="#blog" onclick="toggleMenu()">Blog</a>
+    <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+    <a href="https://calendly.com" target="_blank" class="btn-primary" style="font-size:1rem;">Agendar cita</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="inicio">
+    <div class="hero-content">
+      <div class="hero-badge">Psicóloga Clínica & Psicoterapeuta</div>
+      <h1 class="hero-title">
+        Un espacio seguro para <em>sanar</em> y <strong>crecer</strong>
+      </h1>
+      <p class="hero-sub">
+        Acompaño a jóvenes y adultos que atraviesan ansiedad, estrés o momentos difíciles. Juntos encontramos el camino hacia el bienestar emocional.
+      </p>
+      <div class="hero-btns">
+        <a href="https://wa.me/521234567890" target="_blank" class="btn-primary">
+          💬 Hablemos por WhatsApp
+        </a>
+        <a href="#servicios" class="btn-outline">Ver servicios →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">+300</div>
+          <div class="stat-label">Pacientes acompañados</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Satisfacción</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <div class="hero-img-wrap">
+        <div class="hero-img-blob">
+          <div class="hero-img-placeholder">
+            <div class="silhouette"></div>
+            <p class="img-caption">Dra. Sofía Mendoza</p>
+          </div>
+        </div>
+        <div class="hero-card-float card-1">
+          <div class="card-icon">🧠</div>
+          <div>
+            <div class="card-text-main">Terapia cognitiva</div>
+            <div class="card-text-sub">Enfoque basado en evidencia</div>
+          </div>
+        </div>
+        <div class="hero-card-float card-2">
+          <div class="card-rating">★★★★★</div>
+          <div class="card-text-main" style="font-size:0.82rem; margin-top:0.2rem;">4.9 / 5 en Google</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi">
+    <div class="sobre-img-wrap reveal">
+      <div class="sobre-deco"></div>
+      <div class="sobre-img-bg">
+        <div style="text-align:center; color:var(--texto-suave);">
+          <div style="font-size:5rem; margin-bottom:0.5rem;">🌸</div>
+          <p style="font-size:0.85rem;">Foto de la psicóloga</p>
+        </div>
+      </div>
+      <div class="sobre-badge-float">
+        <span class="sobre-badge-num">6+</span>
+        <span class="sobre-badge-text">Años de experiencia</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="seccion-tag">Sobre mí</span>
+      <h2 class="seccion-titulo">Hola, soy <em>Sofía Mendoza</em></h2>
+      <p class="sobre-texto">
+        Psicóloga clínica egresada de la UNAM con especialidad en terapia cognitivo-conductual. A lo largo de seis años he acompañado a más de 300 personas a encontrar herramientas para enfrentar sus procesos emocionales.
+      </p>
+      <p class="sobre-texto">
+        Creo firmemente que pedir ayuda es un acto de valentía. Mi objetivo es que en cada sesión te sientas escuchado, respetado y con claridad para avanzar.
+      </p>
+      <div class="sobre-skills">
+        <span class="skill-tag">Terapia cognitivo-conductual</span>
+        <span class="skill-tag">Ansiedad y estrés</span>
+        <span class="skill-tag">Depresión</span>
+        <span class="skill-tag">Autoestima</span>
+        <span class="skill-tag">Terapia de pareja</span>
+        <span class="skill-tag">Duelo</span>
+        <span class="skill-tag">Habilidades sociales</span>
+      </div>
+      <div style="margin-top:2rem;">
+        <a href="#contacto" class="btn-primary">Agendar primera sesión →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="seccion-header reveal">
+      <span class="seccion-tag">Servicios</span>
+      <h2 class="seccion-titulo">¿En qué puedo <em>ayudarte</em>?</h2>
+      <p class="seccion-desc">Ofrezco distintas modalidades adaptadas a tus necesidades y estilo de vida.</p>
+    </div>
+    <div class="servicios-grid">
+      <div class="servicio-card reveal">
+        <div class="serv-icon">🏡</div>
+        <h3 class="serv-title">Terapia Presencial</h3>
+        <p class="serv-desc">Sesiones individuales en un consultorio cálido y privado en Ciudad de México. Ideal si prefieres el contacto directo y la conexión cara a cara.</p>
+        <div class="serv-precio">$800 MXN <span>/ sesión de 50 min</span></div>
+      </div>
+      <div class="servicio-card reveal" style="transition-delay:0.1s">
+        <div class="serv-icon">💻</div>
+        <h3 class="serv-title">Terapia Online</h3>
+        <p class="serv-desc">Acompañamiento por videollamada desde donde estés. Flexible, cómodo y con la misma calidad de atención. Disponible para hispanohablantes en todo el mundo.</p>
+        <div class="serv-precio">$700 MXN <span>/ sesión de 50 min</span></div>
+      </div>
+      <div class="servicio-card reveal" style="transition-delay:0.2s">
+        <div class="serv-icon">🌱</div>
+        <h3 class="serv-title">Consulta Inicial</h3>
+        <p class="serv-desc">Una primera sesión exploratoria para conocernos, entender lo que estás viviendo y definir el plan terapéutico que mejor se adapte a ti.</p>
+        <div class="serv-precio">$400 MXN <span>/ sesión de 30 min</span></div>
+      </div>
+      <div class="servicio-card reveal" style="transition-delay:0.1s">
+        <div class="serv-icon">👫</div>
+        <h3 class="serv-title">Terapia de Pareja</h3>
+        <p class="serv-desc">Trabajo conjunto para mejorar la comunicación, resolver conflictos y fortalecer el vínculo. Presencial u online.</p>
+        <div class="serv-precio">$1,100 MXN <span>/ sesión de 60 min</span></div>
+      </div>
+      <div class="servicio-card reveal" style="transition-delay:0.2s">
+        <div class="serv-icon">🧘</div>
+        <h3 class="serv-title">Manejo de Ansiedad</h3>
+        <p class="serv-desc">Programa de 8 sesiones enfocado en técnicas de regulación emocional, mindfulness y reestructuración cognitiva.</p>
+        <div class="serv-precio">$5,600 MXN <span>/ programa completo</span></div>
+      </div>
+      <div class="servicio-card reveal" style="transition-delay:0.3s">
+        <div class="serv-icon">✨</div>
+        <h3 class="serv-title">Talleres Grupales</h3>
+        <p class="serv-desc">Espacios de aprendizaje colectivo sobre temas como autoestima, límites, comunicación asertiva y bienestar emocional.</p>
+        <div class="serv-precio">$350 MXN <span>/ taller</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="seccion-header reveal">
+      <span class="seccion-tag">¿Cómo funciona?</span>
+      <h2 class="seccion-titulo">Tu proceso, <em>paso a paso</em></h2>
+      <p class="seccion-desc">Empezar es más sencillo de lo que crees. Estos son los pasos para dar el primer paso.</p>
+    </div>
+    <div class="proceso-steps">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <h4 class="paso-title">Escríbeme</h4>
+        <p class="paso-desc">Mándame un mensaje por WhatsApp o llena el formulario de contacto. Sin compromiso.</p>
+      </div>
+      <div class="paso reveal" style="transition-delay:0.1s">
+        <div class="paso-num">2</div>
+        <h4 class="paso-title">Primera sesión</h4>
+        <p class="paso-desc">Agendamos una consulta inicial para conocernos y entender qué necesitas.</p>
+      </div>
+      <div class="paso reveal" style="transition-delay:0.2s">
+        <div class="paso-num">3</div>
+        <h4 class="paso-title">Plan personalizado</h4>
+        <p class="paso-desc">Diseñamos juntos un plan terapéutico adaptado a tus objetivos y ritmo.</p>
+      </div>
+      <div class="paso reveal" style="transition-delay:0.3s">
+        <div class="paso-num">4</div>
+        <h4 class="paso-title">Avanzamos</h4>
+        <p class="paso-desc">Sesiones regulares con seguimiento, herramientas prácticas y acompañamiento continuo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="seccion-header reveal">
+      <span class="seccion-tag">Blog</span>
+      <h2 class="seccion-titulo">Recursos para tu <em>bienestar</em></h2>
+      <p class="seccion-desc">Artículos sobre salud mental, emociones y herramientas para el día a día.</p>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-img bg1">🧠</div>
+        <div class="blog-body">
+          <span class="blog-tag">Ansiedad</span>
+          <h3 class="blog-title">5 técnicas para calmar la ansiedad en momentos de crisis</h3>
+          <p class="blog-excerpt">La ansiedad puede sentirse abrumadora, pero existen estrategias probadas que puedes aplicar en el momento que más lo necesitas.</p>
+          <div class="blog-meta">📅 15 de enero, 2025 · 5 min de lectura</div>
+          <a href="#" class="blog-link">Leer artículo →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal" style="transition-delay:0.1s">
+        <div class="blog-img bg2">💜</div>
+        <div class="blog-body">
+          <span class="blog-tag">Autoestima</span>
+          <h3 class="blog-title">Cómo dejar de ser tu peor crítico y empezar a tratarte mejor</h3>
+          <p class="blog-excerpt">El diálogo interno negativo es uno de los patrones más dañinos. Aprende a identificarlo y cambiarlo con estas estrategias.</p>
+          <div class="blog-meta">📅 3 de febrero, 2025 · 7 min de lectura</div>
+          <a href="#" class="blog-link">Leer artículo →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal" style="transition-delay:0.2s">
+        <div class="blog-img bg3">🌿</div>
+        <div class="blog-body">
+          <span class="blog-tag">Mindfulness</span>
+          <h3 class="blog-title">Mindfulness para principiantes: por dónde empezar sin agobiarte</h3>
+          <p class="blog-excerpt">No necesitas meditar una hora al día. Estas micro-prácticas de mindfulness caben en cualquier rutina.</p>
+          <div class="blog-meta">📅 20 de febrero, 2025 · 4 min de lectura</div>
+          <a href="#" class="blog-link">Leer artículo →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA CALENDLY -->
+  <section id="agenda">
+    <h2>¿Lista para dar el <em style="font-style:italic;">primer paso</em>?</h2>
+    <p>Agenda tu consulta inicial directamente en mi calendario. Sin esperas, sin complicaciones.</p>
+    <a href="https://calendly.com" target="_blank" class="btn-calendly">
+      📅 Ver disponibilidad y agendar
+    </a>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="contacto-info reveal">
+      <span class="seccion-tag">Contacto</span>
+      <h2>Estoy aquí para <em style="font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--acento);">escucharte</em></h2>
+      <p>Escríbeme o llena el formulario y me pondré en contacto contigo en menos de 24 horas.</p>
+      <div class="contacto-items">
+        <div class="contacto-item">
+          <div class="ci-icon">📱</div>
+          <div>
+            <div class="ci-label">WhatsApp</div>
+            <div class="ci-value">+52 55 1234 5678</div>
+          </div>
+        </div>
+        <div class="contacto-item">
+          <div class="ci-icon">✉️</div>
+          <div>
+            <div class="ci-label">Correo electrónico</div>
+            <div class="ci-value">hola@sofiamendoza.mx</div>
+          </div>
+        </div>
+        <div class="contacto-item">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Consultorio</div>
+            <div class="ci-value">Colonia Condesa, CDMX</div>
+          </div>
+        </div>
+        <div class="contacto-item">
+          <div class="ci-icon">🕐</div>
+          <div>
+            <div class="ci-label">Horario de atención</div>
+            <div class="ci-value">Lun–Vie: 9am – 7pm</div>
+          </div>
+        </div>
+      </div>
+      <div class="mapa-wrap">
+        <!-- Reemplaza con un iframe real de Google Maps -->
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:0.5rem;color:var(--texto-suave);">
+          <span style="font-size:2rem;">🗺️</span>
+          <span style="font-size:0.85rem;">Embed de Google Maps aquí</span>
+          <span style="font-size:0.75rem;">Colonia Condesa, CDMX</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="transition-delay:0.15s">
+      <span class="seccion-tag">Envíame un mensaje</span>
+      <br><br>
+      <form class="contacto-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" placeholder="Tu apellido">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" placeholder="tu@correo.com" required>
+        </div>
+        <div class="form-group">
+          <label>Teléfono (opcional)</label>
+          <input type="tel" placeholder="+52 55 0000 0000">
+        </div>
+        <div class="form-group">
+          <label>Tipo de consulta</label>
+          <select>
+            <option value="">Selecciona una opción</option>
+            <option>Terapia individual presencial</option>
+            <option>Terapia individual online</option>
+            <option>Consulta inicial</option>
+            <option>Terapia de pareja</option>
+            <option>Talleres grupales</option>
+            <option>Otra</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea rows="4" placeholder="Cuéntame brevemente cómo te puedo ayudar..."></textarea>
+        </div>
+        <div id="formMsg" class="form-msg"></div>
+        <button type="submit" class="btn-form">
+          Enviar mensaje ✦
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#inicio" class="nav-logo">Sofía <span style="font-style:italic;font-weight:300;">Mendoza</span></a>
+        <p>Psicóloga clínica comprometida con tu bienestar emocional. Un espacio seguro para sanar y crecer.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#">Terapia Presencial</a></li>
+          <li><a href="#">Terapia Online</a></li>
+          <li><a href="#">Consulta Inicial</a></li>
+          <li><a href="#">Terapia de Pareja</a></li>
+          <li><a href="#">Talleres</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Dra. Sofía Mendoza · Todos los derechos reservados</span>
+      <span>Desarrollado por <a href="#">Juan Pariona</a></span>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a href="https://wa.me/521234567890" target="_blank" class="wa-float" aria-label="Contactar por WhatsApp">
+    <span class="wa-tooltip">¡Escríbeme!</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <script>
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Form submit (simulado)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const msg = document.getElementById('formMsg');
+      msg.className = 'form-msg success';
+      msg.textContent = '✅ ¡Mensaje enviado! Me pondré en contacto contigo pronto.';
+      this.reset();
+      setTimeout(() => { msg.className = 'form-msg'; msg.textContent = ''; }, 5000);
+    });
+  </script>
+</body>
+</html>
