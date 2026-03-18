@@ -659,7 +659,7 @@
       <li><a href="#blog">Blog</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a href="https://calendly.com/juankarloz23/30min" target="_blank" class="btn-nav">Agendar cita</a>
+    <a href="https://calendly.com" target="_blank" class="btn-nav">Agendar cita</a>
     <div class="hamburger" id="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </div>
@@ -673,7 +673,7 @@
     <a href="#proceso" onclick="toggleMenu()">Proceso</a>
     <a href="#blog" onclick="toggleMenu()">Blog</a>
     <a href="#contacto" onclick="toggleMenu()">Contacto</a>
-    <a href="https://calendly.com/juankarloz23/30min" target="_blank" class="btn-primary" style="font-size:1rem;">Agendar cita</a>
+    <a href="https://calendly.com" target="_blank" class="btn-primary" style="font-size:1rem;">Agendar cita</a>
   </div>
 
   <!-- HERO -->
@@ -947,29 +947,29 @@
       <span class="seccion-tag">Envíame un mensaje</span>
       <br><br>
       <form class="contacto-form" id="contactForm"
-      action="https://formspree.io/f/mzdjknzq"
-      method="POST">
+            action="https://formspree.io/f/mzdjknzq"
+            method="POST">
         <div class="form-row">
           <div class="form-group">
             <label>Nombre</label>
-            <input type="text" placeholder="Tu nombre" required>
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
           </div>
           <div class="form-group">
             <label>Apellido</label>
-            <input type="text" placeholder="Tu apellido">
+            <input type="text" name="apellido" placeholder="Tu apellido">
           </div>
         </div>
         <div class="form-group">
           <label>Correo electrónico</label>
-          <input type="email" placeholder="tu@correo.com" required>
+          <input type="email" name="email" placeholder="tu@correo.com" required>
         </div>
         <div class="form-group">
           <label>Teléfono (opcional)</label>
-          <input type="tel" placeholder="+52 55 0000 0000">
+          <input type="tel" name="telefono" placeholder="+52 55 0000 0000">
         </div>
         <div class="form-group">
           <label>Tipo de consulta</label>
-          <select>
+          <select name="tipo_consulta">
             <option value="">Selecciona una opción</option>
             <option>Terapia individual presencial</option>
             <option>Terapia individual online</option>
@@ -981,7 +981,7 @@
         </div>
         <div class="form-group">
           <label>Mensaje</label>
-          <textarea rows="4" placeholder="Cuéntame brevemente cómo te puedo ayudar..."></textarea>
+          <textarea name="mensaje" rows="4" placeholder="Cuéntame brevemente cómo te puedo ayudar..."></textarea>
         </div>
         <div id="formMsg" class="form-msg"></div>
         <button type="submit" class="btn-form">
@@ -1052,14 +1052,37 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    // Form submit (simulado)
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    // Form submit — Formspree real
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const msg = document.getElementById('formMsg');
-      msg.className = 'form-msg success';
-      msg.textContent = '✅ ¡Mensaje enviado! Me pondré en contacto contigo pronto.';
-      this.reset();
-      setTimeout(() => { msg.className = 'form-msg'; msg.textContent = ''; }, 5000);
+      const btn = this.querySelector('.btn-form');
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('https://formspree.io/f/mzdjknzq', {
+          method: 'POST',
+          body: new FormData(this),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          msg.className = 'form-msg success';
+          msg.textContent = '✅ ¡Mensaje enviado! Te responderé en menos de 24 horas.';
+          this.reset();
+        } else {
+          msg.className = 'form-msg error';
+          msg.textContent = '❌ Hubo un error al enviar. Intenta de nuevo.';
+        }
+      } catch {
+        msg.className = 'form-msg error';
+        msg.textContent = '❌ Sin conexión. Intenta más tarde.';
+      }
+
+      btn.textContent = 'Enviar mensaje ✦';
+      btn.disabled = false;
+      setTimeout(() => { msg.className = 'form-msg'; msg.textContent = ''; }, 6000);
     });
   </script>
 </body>
